@@ -2,6 +2,55 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.12.
 
+## Updating the website
+
+Summary of the steps in `MathiasGamingReviews.pdf` (made from `MathiasGamingReviews.docx`). Account names and passwords are only in those files, which must stay out of git (both are listed in `.gitignore`).
+
+Run all commands in `cmd.exe` (press Windows+R, type `cmd`, press Enter). Do not use PowerShell, because the FTP password contains characters PowerShell treats specially.
+
+### Make a change
+
+```
+cd \Development\mgr-app\mathiasgamingreviews.github.io
+git switch master
+git pull
+ng serve --open
+```
+
+Open the folder in Visual Studio Code and edit the files (for example `src\app\app.component.html`). The browser updates each time you save. When finished, press Ctrl+C in the command window to stop Angular.
+
+### Publish the change
+
+```
+git status
+git commit -a -m "Describe what you changed"
+git push -u origin master
+ng deploy --name="MathiasGamingReviews" --base-href=/
+```
+
+The first `git push` on a computer opens a browser window: sign in to GitHub as MathiasGamingReviews.
+
+Check https://mathiasgamingreviews.github.io (it can take a minute or two to update).
+
+### Copy the change to www.mathiasgamingreviews.com
+
+Replace `FTP-PASSWORD` with the FTP password from the PDF. The `ncftpget -DD` line **deletes** the old files from the live server (keeping a copy in `temp`), so only run it right before the upload.
+
+```
+md temp
+ncftpget -C -DD -u upload@mathiasgamingreviews.com -p FTP-PASSWORD ftp.mathiasgamingreviews.com \ .\temp
+ncftpput -u upload@mathiasgamingreviews.com -p FTP-PASSWORD ftp.mathiasgamingreviews.com \ .\dist\mgr-app\browser\*.*
+rmdir /S /Q temp
+```
+
+Check https://www.mathiasgamingreviews.com.
+
+### Fixes compared to the PDF
+
+- `ng serve –open` → `ng serve --open` (two hyphens, not a dash)
+- `git push origin –u master` → `git push -u origin master`
+- `--base-href=\` → `--base-href=/`
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
