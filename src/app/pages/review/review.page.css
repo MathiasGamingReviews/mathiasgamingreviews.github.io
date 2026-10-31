@@ -6,6 +6,10 @@
   margin-bottom: 1.5rem;
 }
 
+.review-head > div {
+  flex: 1 1 16rem;
+}
+
 .review-head img {
   width: min(200px, 100%);
   aspect-ratio: 1;
