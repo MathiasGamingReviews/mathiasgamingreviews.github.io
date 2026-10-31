@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { DbService } from './db.service';
-import { NewsItem, Page, Review, ReviewSummary } from './models';
+import { NewsItem, Page, Review, ReviewSort, ReviewSummary } from './models';
 
 const REVIEW_COLUMNS = 'r.slug, g.name, g.logo, p.name AS platform, r.stars, r.review_date AS reviewDate';
 
@@ -10,6 +10,13 @@ const REVIEW_TABLES = `
   JOIN platform p ON p.id = r.platform_id`;
 
 const NEWEST_REVIEWS_FIRST = 'ORDER BY r.review_date DESC, r.id DESC';
+
+const REVIEW_SORT_ORDER: Record<ReviewSort, string> = {
+  date: 'r.review_date DESC, g.name COLLATE NOCASE',
+  platform: 'p.name COLLATE NOCASE, g.name COLLATE NOCASE',
+  score: 'r.stars DESC, g.name COLLATE NOCASE',
+  name: 'g.name COLLATE NOCASE, p.name COLLATE NOCASE',
+};
 
 const NEWS_COLUMNS = 'id, title, body, news_date AS newsDate';
 
@@ -53,8 +60,8 @@ export class SiteDataService {
     );
   }
 
-  /** Reviews in alphabetical order, optionally filtered by game or platform name. */
-  async reviewsPage(search: string, page: number, pageSize: number): Promise<Page<ReviewSummary>> {
+  /** Reviews in the chosen order, optionally filtered by game or platform name. */
+  async reviewsPage(search: string, sort: ReviewSort, page: number, pageSize: number): Promise<Page<ReviewSummary>> {
     const where = 'WHERE g.name LIKE ? OR p.name LIKE ?';
     const pattern = `%${search.trim()}%`;
     const [{ total }] = await this.db.query<{ total: number }>(
@@ -65,7 +72,7 @@ export class SiteDataService {
     page = clamp(page, pageCount);
     const items = await this.db.query<ReviewSummary>(
       `SELECT ${REVIEW_COLUMNS} ${REVIEW_TABLES} ${where}
-       ORDER BY g.name COLLATE NOCASE, p.name COLLATE NOCASE LIMIT ? OFFSET ?`,
+       ORDER BY ${REVIEW_SORT_ORDER[sort]}, r.id LIMIT ? OFFSET ?`,
       [pattern, pattern, pageSize, (page - 1) * pageSize],
     );
     return { items, page, pageCount };

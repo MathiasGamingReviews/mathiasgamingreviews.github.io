@@ -17,15 +17,25 @@
   <section class="section">
     <div class="section-head">
       <h2>All reviews</h2>
-      <input
-        class="search"
-        type="search"
-        placeholder="Search games or platforms..."
-        aria-label="Search reviews"
-        [value]="q() ?? ''"
-        (input)="search(searchBox.value)"
-        #searchBox
-      />
+      <div class="controls">
+        <input
+          class="search"
+          type="search"
+          placeholder="Search games or platforms..."
+          aria-label="Search reviews"
+          [value]="q() ?? ''"
+          (input)="search(searchBox.value)"
+          #searchBox
+        />
+        <label class="sort">
+          Sort by
+          <select (change)="sortChanged(sortBox.value)" #sortBox>
+            @for (option of sortOptions; track option.value) {
+              <option [value]="option.value" [selected]="option.value === sortBy()">{{ option.label }}</option>
+            }
+          </select>
+        </label>
+      </div>
     </div>
     @if (result(); as current) {
       <div class="card-grid">

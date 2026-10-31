@@ -94,8 +94,17 @@ a {
   color: var(--muted);
 }
 
-.search {
-  width: min(22rem, 100%);
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  /* Let the search box shrink on narrow screens instead of sticking out. */
+  min-width: 0;
+}
+
+.search,
+.sort select {
   padding: 0.55rem 0.9rem;
   border-radius: var(--radius);
   border: 1px solid var(--border);
@@ -104,9 +113,23 @@ a {
   font: inherit;
 }
 
-.search:focus {
+.search {
+  width: 22rem;
+  max-width: 100%;
+}
+
+.search:focus,
+.sort select:focus {
   outline: 2px solid var(--accent);
   outline-offset: 1px;
+}
+
+.sort {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--muted);
+  white-space: nowrap;
 }
 
 /* A single review or news item. */

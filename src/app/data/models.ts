@@ -18,6 +18,8 @@ export interface NewsItem {
   newsDate: string;
 }
 
+export type ReviewSort = 'date' | 'platform' | 'score' | 'name';
+
 export interface Page<T> {
   items: T[];
   page: number;
