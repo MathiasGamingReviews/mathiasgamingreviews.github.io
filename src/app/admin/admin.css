@@ -1,0 +1,37 @@
+.admin { max-width: 70rem; }
+.back { display: inline-block; margin-bottom: 1rem; text-decoration: none; }
+.spaced { margin-top: 2.5rem; }
+.notice { padding: 0.7rem 1rem; border-radius: var(--radius); background: var(--surface); border-left: 4px solid var(--accent-2); }
+.notice.ok { border-color: #4ade80; }
+.notice.error { border-color: #f87171; color: #fecaca; }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 0.5rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
+th { color: var(--muted); font-weight: 600; }
+.nowrap { white-space: nowrap; }
+.actions { white-space: nowrap; text-align: right; }
+.actions a + a { margin-left: 1rem; }
+
+.button, button {
+  display: inline-block; padding: 0.45rem 0.9rem; border: 1px solid var(--border); border-radius: var(--radius);
+  background: var(--surface); color: var(--text); font: inherit; text-decoration: none; cursor: pointer;
+}
+.button:hover, button:hover:not(:disabled) { border-color: var(--accent); }
+.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+.danger { border-color: #f87171; color: #fecaca; }
+button:disabled { opacity: 0.5; cursor: default; }
+
+form { display: grid; gap: 1.1rem; }
+label, fieldset { display: grid; gap: 0.3rem; }
+label > span, legend { font-weight: 600; }
+fieldset { margin: 0; padding: 1rem; border: 1px solid var(--border); border-radius: var(--radius); }
+.hint { color: var(--muted); font-size: 0.85rem; font-weight: normal; }
+input, select, textarea {
+  width: 100%; padding: 0.5rem 0.7rem; border: 1px solid var(--border); border-radius: calc(var(--radius) - 4px);
+  background: var(--bg-deep); color: var(--text); font: inherit;
+}
+textarea { min-height: 12rem; resize: vertical; line-height: 1.5; }
+input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.row { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: 1rem; }
+.form-buttons { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.form-buttons .danger { margin-left: auto; }

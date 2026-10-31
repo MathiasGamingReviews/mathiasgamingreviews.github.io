@@ -6,6 +6,12 @@ import initSqlJs, { Database, SqlValue } from 'sql.js';
 export class DbService {
   private db?: Promise<Database>;
 
+  /** Load the database file again on the next query (used after saving in the edit pages). */
+  reload(): void {
+    this.db?.then((db) => db.close()).catch(() => undefined);
+    this.db = undefined;
+  }
+
   async query<T>(sql: string, params: SqlValue[] = []): Promise<T[]> {
     const db = await this.open();
     const statement = db.prepare(sql);

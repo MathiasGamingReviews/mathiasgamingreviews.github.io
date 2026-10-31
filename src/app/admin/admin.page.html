@@ -1,0 +1,79 @@
+<section class="section admin">
+  <div class="section-head">
+    <h1>Edit the website</h1>
+  </div>
+
+  @if (message) {
+    <p class="notice ok">{{ message }}</p>
+  }
+  @if (error()) {
+    <p class="notice error">{{ error() }}</p>
+  } @else {
+    <p class="notice">
+      Changes are saved on this computer straight away. To put them on the internet, save them in git and deploy
+      them (see "Deploying the website" in README.md).
+    </p>
+
+    <div class="section-head">
+      <h2>Reviews</h2>
+      <a class="button primary" routerLink="/admin/reviews/new">+ New review</a>
+    </div>
+    @if (reviews(); as rows) {
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Game</th><th>Platform</th><th>Stars</th><th>Date</th><th></th></tr>
+          </thead>
+          <tbody>
+            @for (row of rows; track row.id) {
+              <tr>
+                <td>{{ row.name }}</td>
+                <td>{{ row.platform }}</td>
+                <td><app-stars [stars]="row.stars" /></td>
+                <td class="nowrap">{{ row.reviewDate | date: 'd MMM y' }}</td>
+                <td class="actions">
+                  <a [routerLink]="['/admin/reviews', row.id]">Edit</a>
+                  <a [routerLink]="['/reviews', row.slug]">View</a>
+                </td>
+              </tr>
+            } @empty {
+              <tr><td colspan="5">No reviews yet.</td></tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    } @else {
+      <p class="message">Loading...</p>
+    }
+
+    <div class="section-head spaced">
+      <h2>News</h2>
+      <a class="button primary" routerLink="/admin/news/new">+ New news item</a>
+    </div>
+    @if (news(); as rows) {
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Title</th><th>Date</th><th></th></tr>
+          </thead>
+          <tbody>
+            @for (row of rows; track row.id) {
+              <tr>
+                <td>{{ row.title }}</td>
+                <td class="nowrap">{{ row.newsDate | date: 'd MMM y' }}</td>
+                <td class="actions">
+                  <a [routerLink]="['/admin/news', row.id]">Edit</a>
+                  <a [routerLink]="['/news', row.id]">View</a>
+                </td>
+              </tr>
+            } @empty {
+              <tr><td colspan="3">No news yet.</td></tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    } @else {
+      <p class="message">Loading...</p>
+    }
+  }
+</section>

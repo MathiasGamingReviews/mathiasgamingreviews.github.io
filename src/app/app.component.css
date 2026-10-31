@@ -65,3 +65,8 @@
   margin: 0 auto;
   padding: 0.5rem var(--gutter) 3rem;
 }
+
+.menu-bar a.edit-link {
+  background: rgb(0 0 0 / 0.25);
+  color: var(--star);
+}

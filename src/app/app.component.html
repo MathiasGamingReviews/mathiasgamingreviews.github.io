@@ -10,6 +10,10 @@
     <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a></li>
     <li><a routerLink="/news" routerLinkActive="active">News</a></li>
     <li><a routerLink="/reviews" routerLinkActive="active">Reviews</a></li>
+    @if (editing) {
+      <!-- Only on this computer while running "ng serve" / "npm run edit". -->
+      <li><a class="edit-link" routerLink="/admin" routerLinkActive="active">✎ Edit</a></li>
+    }
   </ul>
 </nav>
 

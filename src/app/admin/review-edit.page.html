@@ -1,0 +1,118 @@
+<section class="section admin">
+  <a class="back" routerLink="/admin">‹ Back to the overview</a>
+  <div class="section-head">
+    <h1>{{ isNew ? 'New review' : 'Edit review' }}</h1>
+  </div>
+
+  @if (status() === 'loading') {
+    <p class="message">Loading...</p>
+  } @else if (status() === 'failed') {
+    <p class="notice error">{{ error() }}</p>
+  } @else {
+    <form (ngSubmit)="save()">
+      <div class="game">
+        <img class="logo" [src]="logoPreview()" alt="Logo" />
+        <div class="game-fields">
+          <label>
+            <span>Game</span>
+            <input name="gameName" [(ngModel)]="form.gameName" (ngModelChange)="nameChanged()" list="games" required autocomplete="off" />
+            <datalist id="games">
+              @for (game of options().games; track game.name) {
+                <option [value]="game.name"></option>
+              }
+            </datalist>
+          </label>
+          <label>
+            <span>Logo <span class="hint">({{ existingGame() ? 'shared by all reviews of this game' : 'square image' }})</span></span>
+            <input type="file" accept="image/*" (change)="uploadLogo(logoFile)" #logoFile [disabled]="busy()" />
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <label>
+          <span>Platform</span>
+          <input name="platform" [(ngModel)]="form.platform" (ngModelChange)="nameChanged()" list="platforms" required autocomplete="off" />
+          <datalist id="platforms">
+            @for (platform of options().platforms; track platform) {
+              <option [value]="platform"></option>
+            }
+          </datalist>
+        </label>
+        <label>
+          <span>Stars</span>
+          <select name="stars" [(ngModel)]="form.stars">
+            @for (n of stars; track n) {
+              <option [ngValue]="n">{{ '★'.repeat(n) }}{{ '☆'.repeat(5 - n) }} ({{ n }})</option>
+            }
+          </select>
+        </label>
+        <label>
+          <span>Review date</span>
+          <input type="date" name="reviewDate" [(ngModel)]="form.reviewDate" required />
+        </label>
+      </div>
+
+      <label>
+        <span>Web address <span class="hint">mathiasgamingreviews.com/reviews/{{ form.slug || '...' }}</span></span>
+        <input name="slug" [(ngModel)]="form.slug" (input)="slugTyped()" required />
+      </label>
+
+      <label>
+        <span>Review <span class="hint">(leave an empty line between paragraphs)</span></span>
+        <textarea name="body" [(ngModel)]="form.body" required></textarea>
+      </label>
+
+      <fieldset>
+        <legend>Screenshots</legend>
+        @for (shot of form.screenshots; track shot.file; let i = $index, first = $first, last = $last) {
+          <div class="item">
+            <img class="shot" [src]="shot.file" [alt]="shot.name" />
+            <div class="item-fields">
+              <input [(ngModel)]="shot.name" [ngModelOptions]="{ standalone: true }" placeholder="Name" aria-label="Screenshot name" />
+              <textarea class="short" [(ngModel)]="shot.description" [ngModelOptions]="{ standalone: true }" placeholder="Description" aria-label="Screenshot description"></textarea>
+            </div>
+            <div class="item-buttons">
+              <button type="button" (click)="moveScreenshot(i, -1)" [disabled]="first" title="Move up">↑</button>
+              <button type="button" (click)="moveScreenshot(i, 1)" [disabled]="last" title="Move down">↓</button>
+              <button type="button" class="danger" (click)="removeScreenshot(i)" title="Remove">✕</button>
+            </div>
+          </div>
+        }
+        <label>
+          <span class="hint">Add screenshots (you can choose several at once)</span>
+          <input type="file" accept="image/*" multiple (change)="addScreenshots(shotFiles)" #shotFiles [disabled]="busy()" />
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Links</legend>
+        @for (link of form.links; track $index; let i = $index, first = $first, last = $last) {
+          <div class="item link">
+            <div class="item-fields">
+              <input type="url" [(ngModel)]="link.url" [ngModelOptions]="{ standalone: true }" placeholder="https://..." aria-label="Link address" />
+              <input [(ngModel)]="link.description" [ngModelOptions]="{ standalone: true }" placeholder="Description" aria-label="Link description" />
+            </div>
+            <div class="item-buttons">
+              <button type="button" (click)="moveLink(i, -1)" [disabled]="first" title="Move up">↑</button>
+              <button type="button" (click)="moveLink(i, 1)" [disabled]="last" title="Move down">↓</button>
+              <button type="button" class="danger" (click)="removeLink(i)" title="Remove">✕</button>
+            </div>
+          </div>
+        }
+        <div><button type="button" (click)="addLink()">+ Add link</button></div>
+      </fieldset>
+
+      @if (error()) {
+        <p class="notice error">{{ error() }}</p>
+      }
+      <div class="form-buttons">
+        <button type="submit" class="primary" [disabled]="busy()">{{ busy() ? 'Please wait...' : 'Save' }}</button>
+        <a class="button" routerLink="/admin">Cancel</a>
+        @if (!isNew) {
+          <button type="button" class="danger" (click)="delete()" [disabled]="busy()">Delete review</button>
+        }
+      </div>
+    </form>
+  }
+</section>

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, isDevMode } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { ViewportScroller } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -13,6 +13,7 @@ import { filter } from 'rxjs';
 })
 export class AppComponent {
   title = 'Mathias Gaming Reviews';
+  protected readonly editing = isDevMode();
 
   constructor() {
     // Scroll to the top when going to another page, but not when only the

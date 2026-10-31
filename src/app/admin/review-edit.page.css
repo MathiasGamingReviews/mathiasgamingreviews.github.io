@@ -1,0 +1,9 @@
+.game { display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-start; }
+.game-fields { flex: 1 1 18rem; display: grid; gap: 1rem; }
+.logo { width: 120px; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius); border: 1px solid var(--border); }
+.item { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: flex-start; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+.shot { width: 160px; aspect-ratio: 16 / 9; object-fit: cover; border-radius: calc(var(--radius) - 4px); }
+.item-fields { flex: 1 1 16rem; display: grid; gap: 0.5rem; }
+.item-buttons { display: flex; gap: 0.4rem; }
+.item-buttons button { padding: 0.3rem 0.6rem; }
+textarea.short { min-height: 4rem; }

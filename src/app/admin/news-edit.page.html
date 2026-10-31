@@ -1,0 +1,41 @@
+<section class="section admin">
+  <a class="back" routerLink="/admin">‹ Back to the overview</a>
+  <div class="section-head">
+    <h1>{{ isNew ? 'New news item' : 'Edit news item' }}</h1>
+  </div>
+
+  @if (status() === 'loading') {
+    <p class="message">Loading...</p>
+  } @else if (status() === 'failed') {
+    <p class="notice error">{{ error() }}</p>
+  } @else {
+    <form (ngSubmit)="save()">
+      <div class="row">
+        <label>
+          <span>Title</span>
+          <input name="title" [(ngModel)]="form.title" required />
+        </label>
+        <label>
+          <span>Date</span>
+          <input type="date" name="newsDate" [(ngModel)]="form.newsDate" required />
+        </label>
+      </div>
+
+      <label>
+        <span>Text <span class="hint">(the first two lines show on the news cards; leave an empty line between paragraphs)</span></span>
+        <textarea name="body" [(ngModel)]="form.body" required></textarea>
+      </label>
+
+      @if (error()) {
+        <p class="notice error">{{ error() }}</p>
+      }
+      <div class="form-buttons">
+        <button type="submit" class="primary" [disabled]="busy()">{{ busy() ? 'Please wait...' : 'Save' }}</button>
+        <a class="button" routerLink="/admin">Cancel</a>
+        @if (!isNew) {
+          <button type="button" class="danger" (click)="delete()" [disabled]="busy()">Delete news item</button>
+        }
+      </div>
+    </form>
+  }
+</section>
