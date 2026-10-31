@@ -1,0 +1,43 @@
+@if (failed()) {
+  <p class="message">Sorry, the reviews could not be loaded. Please try again later.</p>
+} @else {
+  <section class="section">
+    <div class="section-head">
+      <h1>Latest reviews</h1>
+    </div>
+    <div class="card-grid">
+      @for (review of latest(); track review.slug) {
+        <app-review-card [review]="review" />
+      } @empty {
+        <p class="message">{{ latest() ? 'No reviews yet.' : 'Loading...' }}</p>
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>All reviews</h2>
+      <input
+        class="search"
+        type="search"
+        placeholder="Search games or platforms..."
+        aria-label="Search reviews"
+        [value]="q() ?? ''"
+        (input)="search(searchBox.value)"
+        #searchBox
+      />
+    </div>
+    @if (result(); as current) {
+      <div class="card-grid">
+        @for (review of current.items; track review.slug) {
+          <app-review-card [review]="review" />
+        } @empty {
+          <p class="message">No reviews match "{{ q() }}".</p>
+        }
+      </div>
+      <app-pager [page]="current.page" [pageCount]="current.pageCount" />
+    } @else {
+      <p class="message">Loading...</p>
+    }
+  </section>
+}

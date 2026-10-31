@@ -1,0 +1,67 @@
+.site-header {
+  padding: 1rem var(--gutter);
+  background: var(--bg-deep);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.brand img {
+  flex: none;
+}
+
+.brand span {
+  font-size: clamp(1.3rem, 4vw, 2rem);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  background: linear-gradient(90deg, #fff, var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.menu-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--accent);
+  box-shadow: 0 2px 12px rgb(0 0 0 / 0.35);
+}
+
+.menu-bar ul {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0;
+  padding: 0 var(--gutter);
+  list-style: none;
+}
+
+/* The " | " between the links. */
+.menu-bar li + li::before {
+  content: '|';
+  color: rgb(255 255 255 / 0.5);
+}
+
+.menu-bar a {
+  display: inline-block;
+  padding: 0.7rem 0.9rem;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.menu-bar a:hover,
+.menu-bar a.active {
+  background: rgb(0 0 0 / 0.2);
+}
+
+.page {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0.5rem var(--gutter) 3rem;
+}

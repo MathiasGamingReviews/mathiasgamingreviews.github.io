@@ -1,0 +1,23 @@
+<article class="section article">
+  <a class="back" routerLink="/news">‹ All news</a>
+  @switch (status()) {
+    @case ('loading') {
+      <p class="message">Loading...</p>
+    }
+    @case ('not-found') {
+      <p class="message">This news item does not exist.</p>
+    }
+    @case ('failed') {
+      <p class="message">Sorry, the news could not be loaded. Please try again later.</p>
+    }
+    @case ('ready') {
+      @if (item(); as news) {
+        <h1>{{ news.title }}</h1>
+        <time class="date" [attr.datetime]="news.newsDate">{{ news.newsDate | date: 'd MMMM y' }}</time>
+        @for (paragraph of news.body | paragraphs; track $index) {
+          <p>{{ paragraph }}</p>
+        }
+      }
+    }
+  }
+</article>

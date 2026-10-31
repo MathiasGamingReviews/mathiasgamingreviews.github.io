@@ -1,0 +1,32 @@
+<article class="section article">
+  <a class="back" routerLink="/reviews">‹ All reviews</a>
+  @switch (status()) {
+    @case ('loading') {
+      <p class="message">Loading...</p>
+    }
+    @case ('not-found') {
+      <p class="message">This review does not exist.</p>
+    }
+    @case ('failed') {
+      <p class="message">Sorry, the review could not be loaded. Please try again later.</p>
+    }
+    @case ('ready') {
+      @if (review(); as current) {
+        <header class="review-head">
+          <img [src]="current.logo" [alt]="current.name + ' logo'" />
+          <div>
+            <h1>{{ current.name }}</h1>
+            <p class="platform">{{ current.platform }}</p>
+            <app-stars class="big-stars" [stars]="current.stars" />
+            <time class="date" [attr.datetime]="current.reviewDate"
+              >Reviewed {{ current.reviewDate | date: 'd MMMM y' }}</time
+            >
+          </div>
+        </header>
+        @for (paragraph of current.body | paragraphs; track $index) {
+          <p>{{ paragraph }}</p>
+        }
+      }
+    }
+  }
+</article>

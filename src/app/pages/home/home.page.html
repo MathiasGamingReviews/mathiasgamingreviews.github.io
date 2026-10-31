@@ -1,0 +1,44 @@
+@if (failed()) {
+  <p class="message">Sorry, the site could not be loaded. Please try again later.</p>
+} @else {
+  <section class="section">
+    <div class="section-head">
+      <h2>News</h2>
+      <a routerLink="/news">All news ›</a>
+    </div>
+    <div class="news-list">
+      @for (item of news(); track item.id) {
+        <app-news-card [item]="item" />
+      } @empty {
+        <p class="message">{{ news() ? 'No news yet.' : 'Loading...' }}</p>
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>New reviews</h2>
+      <a routerLink="/reviews">All reviews ›</a>
+    </div>
+    <div class="card-grid">
+      @for (review of newReviews(); track review.slug) {
+        <app-review-card [review]="review" />
+      } @empty {
+        <p class="message">{{ newReviews() ? 'No reviews yet.' : 'Loading...' }}</p>
+      }
+    </div>
+  </section>
+
+  @if (otherReviews()?.length) {
+    <section class="section">
+      <div class="section-head">
+        <h2>More reviews</h2>
+      </div>
+      <div class="card-grid">
+        @for (review of otherReviews(); track review.slug) {
+          <app-review-card [review]="review" />
+        }
+      </div>
+    </section>
+  }
+}

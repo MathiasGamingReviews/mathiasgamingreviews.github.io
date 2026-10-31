@@ -1,0 +1,21 @@
+<section class="section">
+  <div class="section-head">
+    <h1>News</h1>
+  </div>
+  @if (failed()) {
+    <p class="message">Sorry, the news could not be loaded. Please try again later.</p>
+  } @else {
+    @if (result(); as current) {
+      <div class="news-list">
+        @for (item of current.items; track item.id) {
+          <app-news-card [item]="item" />
+        } @empty {
+          <p class="message">No news yet.</p>
+        }
+      </div>
+      <app-pager [page]="current.page" [pageCount]="current.pageCount" />
+    } @else {
+      <p class="message">Loading...</p>
+    }
+  }
+</section>

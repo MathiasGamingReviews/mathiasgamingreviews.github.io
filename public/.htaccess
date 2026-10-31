@@ -1,0 +1,9 @@
+# HostPapa (Apache): send every address that is not a real file to index.html,
+# so links like /reviews/hades work when opened directly or refreshed.
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+RewriteRule ^ index.html [L]
+
+AddType application/wasm .wasm
