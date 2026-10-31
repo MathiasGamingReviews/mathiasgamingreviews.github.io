@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { DbService } from './db.service';
-import { NewsItem, Page, Review, ReviewSort, ReviewSummary } from './models';
+import { NewsItem, Page, Review, ReviewLink, ReviewSort, ReviewSummary, Screenshot } from './models';
 
 const REVIEW_COLUMNS = 'r.slug, g.name, g.logo, p.name AS platform, r.stars, r.review_date AS reviewDate';
 
@@ -79,11 +79,25 @@ export class SiteDataService {
   }
 
   async review(slug: string): Promise<Review | undefined> {
-    const [review] = await this.db.query<Review>(
-      `SELECT ${REVIEW_COLUMNS}, r.body ${REVIEW_TABLES} WHERE r.slug = ?`,
+    const [found] = await this.db.query<Omit<Review, 'screenshots' | 'links'> & { id: number }>(
+      `SELECT r.id, ${REVIEW_COLUMNS}, r.body ${REVIEW_TABLES} WHERE r.slug = ?`,
       [slug],
     );
-    return review;
+    if (!found) {
+      return undefined;
+    }
+    const { id, ...review } = found;
+    const [screenshots, links] = await Promise.all([
+      this.db.query<Screenshot>(
+        'SELECT file, name, description FROM review_screenshot WHERE review_id = ? ORDER BY position, id',
+        [id],
+      ),
+      this.db.query<ReviewLink>(
+        'SELECT url, description FROM review_link WHERE review_id = ? ORDER BY position, id',
+        [id],
+      ),
+    ]);
+    return { ...review, screenshots, links };
   }
 }
 

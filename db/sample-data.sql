@@ -94,6 +94,36 @@ Best played a little bit every day.'),
 
 The characters talk to you after every run, so even losing feels like progress.');
 
+INSERT INTO review_screenshot (review_id, position, file, name, description)
+SELECT r.id, s.position, s.file, s.name, s.description
+FROM review r
+JOIN (
+  SELECT 'hades-pc' AS slug, 1 AS position, 'screenshots/hades-pc/1.svg' AS file, 'The House of Hades' AS name,
+         'Where every escape attempt starts. Talk to everyone here between runs.' AS description
+  UNION ALL SELECT 'hades-pc', 2, 'screenshots/hades-pc/2.svg', 'Choosing a boon',
+         'Gods offer you powers during a run. Picking ones that work together is the key to winning.'
+  UNION ALL SELECT 'hades-pc', 3, 'screenshots/hades-pc/3.svg', 'First boss',
+         'The first boss fight. Watch for the attack patterns and dash out of the way.'
+  UNION ALL SELECT 'celeste-switch', 1, 'screenshots/celeste-switch/1.svg', 'Forsaken City',
+         'The first chapter teaches you to jump, climb and dash.'
+  UNION ALL SELECT 'celeste-switch', 2, 'screenshots/celeste-switch/2.svg', 'Collecting strawberries',
+         'Strawberries are optional, but some are hidden in really tricky places.'
+  UNION ALL SELECT 'minecraft-pc', 1, 'screenshots/minecraft-pc/1.svg', 'Our village',
+         'The village we built on our server, with a house for everyone.'
+  UNION ALL SELECT 'minecraft-pc', 2, 'screenshots/minecraft-pc/2.svg', 'The railway',
+         'A minecart railway connects all our houses.'
+) s ON s.slug = r.slug;
+
+INSERT INTO review_link (review_id, position, url, description)
+SELECT r.id, l.position, l.url, l.description
+FROM review r
+JOIN (
+  SELECT 'minecraft-pc' AS slug, 1 AS position, 'https://www.minecraft.net/' AS url, 'Official Minecraft website' AS description
+  UNION ALL SELECT 'minecraft-pc', 2, 'https://en.wikipedia.org/wiki/Minecraft', 'Minecraft on Wikipedia'
+  UNION ALL SELECT 'celeste-switch', 1, 'https://en.wikipedia.org/wiki/Celeste_(video_game)', 'Celeste on Wikipedia'
+  UNION ALL SELECT 'hades-pc', 1, 'https://en.wikipedia.org/wiki/Hades_(video_game)', 'Hades on Wikipedia'
+) l ON l.slug = r.slug;
+
 INSERT INTO news (title, body, news_date) VALUES
   ('Welcome to Mathias Gaming Reviews',
    'This is the new home for game reviews, cheats, walkthroughs and other fun stuff. Have a look around!',

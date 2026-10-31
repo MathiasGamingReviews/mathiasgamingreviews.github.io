@@ -1,0 +1,35 @@
+<ul class="thumbnails">
+  @for (shot of screenshots(); track shot.file; let i = $index) {
+    <li>
+      <button type="button" (click)="show(i)" [attr.aria-label]="'Show ' + shot.name + ' full size'">
+        <img [src]="shot.file" [alt]="shot.name" loading="lazy" />
+      </button>
+      <h3>{{ shot.name }}</h3>
+      @if (shot.description) {
+        <p>{{ shot.description }}</p>
+      }
+    </li>
+  }
+</ul>
+
+<dialog #dialog (click)="backdropClick($event)" (keydown)="keydown($event)" [attr.aria-label]="open()?.name">
+  @if (open(); as shot) {
+    <figure>
+      <img [src]="shot.file" [alt]="shot.name" />
+      <figcaption>
+        <strong>{{ shot.name }}</strong>
+        @if (shot.description) {
+          <span>{{ shot.description }}</span>
+        }
+      </figcaption>
+    </figure>
+    <div class="dialog-buttons">
+      @if (screenshots().length > 1) {
+        <button type="button" (click)="step(-1)">‹ Previous</button>
+        <span class="counter">{{ openIndex() + 1 }} / {{ screenshots().length }}</span>
+        <button type="button" (click)="step(1)">Next ›</button>
+      }
+      <button type="button" class="close" (click)="close()">Close ✕</button>
+    </div>
+  }
+</dialog>

@@ -1,6 +1,10 @@
--- Mathias Gaming Reviews database layout.
+-- Mathias Gaming Reviews database layout (version 1).
 -- The site reads public/data/mgr.db directly in the browser (sql.js).
 -- Dates are stored as text in the form YYYY-MM-DD.
+--
+-- Do not change this file to alter the layout: add a new numbered file in
+-- db/migrations instead, then run "npm run db:migrate" so the existing
+-- database is updated without losing any reviews or news.
 
 CREATE TABLE platform (
   id   INTEGER PRIMARY KEY,

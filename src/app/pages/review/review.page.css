@@ -32,3 +32,31 @@ h1 {
   font-size: 1.8rem;
   margin-bottom: 0.25rem;
 }
+
+.extras {
+  margin-top: 2.5rem;
+}
+
+.extras h2 {
+  font-size: 1.3rem;
+  margin: 0 0 1rem;
+}
+
+.links {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.links li {
+  display: flex;
+  flex-direction: column;
+}
+
+.links .url {
+  color: var(--muted);
+  font-size: 0.85rem;
+  overflow-wrap: anywhere;
+}

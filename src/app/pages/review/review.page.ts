@@ -5,12 +5,13 @@ import { RouterLink } from '@angular/router';
 import { Review } from '../../data/models';
 import { SiteDataService } from '../../data/site-data.service';
 import { ParagraphsPipe } from '../../shared/paragraphs.pipe';
+import { ScreenshotGalleryComponent } from '../../shared/screenshot-gallery.component';
 import { StarsComponent } from '../../shared/stars.component';
 
 @Component({
   selector: 'app-review-page',
   standalone: true,
-  imports: [DatePipe, RouterLink, ParagraphsPipe, StarsComponent],
+  imports: [DatePipe, RouterLink, ParagraphsPipe, ScreenshotGalleryComponent, StarsComponent],
   templateUrl: './review.page.html',
   styleUrl: './review.page.css',
 })

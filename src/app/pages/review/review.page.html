@@ -26,6 +26,27 @@
         @for (paragraph of current.body | paragraphs; track $index) {
           <p>{{ paragraph }}</p>
         }
+
+        @if (current.screenshots.length) {
+          <section class="extras">
+            <h2>Screenshots</h2>
+            <app-screenshot-gallery [screenshots]="current.screenshots" />
+          </section>
+        }
+
+        @if (current.links.length) {
+          <section class="extras">
+            <h2>Links</h2>
+            <ul class="links">
+              @for (link of current.links; track $index) {
+                <li>
+                  <a [href]="link.url" target="_blank" rel="noopener noreferrer">{{ link.description }}</a>
+                  <span class="url">{{ link.url }}</span>
+                </li>
+              }
+            </ul>
+          </section>
+        }
       }
     }
   }

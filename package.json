@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "db:create": "node scripts/create-db.mjs"
+    "db:create": "node scripts/create-db.mjs",
+    "db:migrate": "node scripts/migrate-db.mjs"
   },
   "private": true,
   "dependencies": {

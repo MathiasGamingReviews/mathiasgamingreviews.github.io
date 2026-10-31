@@ -134,7 +134,7 @@ a {
 
 /* A single review or news item. */
 .article {
-  max-width: 50rem;
+  max-width: 60rem;
   font-size: 1.05rem;
 }
 

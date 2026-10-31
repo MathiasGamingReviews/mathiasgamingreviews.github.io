@@ -9,6 +9,19 @@ export interface ReviewSummary {
 
 export interface Review extends ReviewSummary {
   body: string;
+  screenshots: Screenshot[];
+  links: ReviewLink[];
+}
+
+export interface Screenshot {
+  file: string;
+  name: string;
+  description: string;
+}
+
+export interface ReviewLink {
+  url: string;
+  description: string;
 }
 
 export interface NewsItem {
