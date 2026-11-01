@@ -2,9 +2,9 @@
 
 ## Requirements
 
-- Node.js 22 LTS, 22.13 or newer (`node -v`). The scripts use the built-in `node:sqlite` module. Newer Node versions
-  work but Angular 18 prints an "unsupported version" warning.
-- Angular CLI 18 (`npm install -g @angular/cli@18`).
+- Node.js 24 LTS, 24.15 or newer (`node -v`); 22.22+ also works. The scripts use the built-in `node:sqlite`
+  module.
+- Angular CLI 22 (`npm install -g @angular/cli@22`).
 - Visual Studio Code with the recommended extensions (Angular Language Service, ESLint, Prettier, EditorConfig).
   With them, files are formatted on save and lint problems are underlined while you type.
 
@@ -28,8 +28,8 @@ git push
 | Command                 | Runs                                                                                  |
 | ----------------------- | ------------------------------------------------------------------------------------- |
 | `npm test`              | Everything once                                                                       |
-| `npm run test:app`      | Angular tests (`src/**/*.spec.ts`, Jasmine + Karma, headless Chrome)                  |
-| `npm run test:watch`    | Angular tests in a browser window, re-run on every save                               |
+| `npm run test:app`      | Angular tests (`src/**/*.spec.ts`, Vitest with jsdom)                  |
+| `npm run test:watch`    | Angular tests, re-run on every save                               |
 | `npm run test:scripts`  | Script tests (`scripts/test/*.test.mjs`, Node's built-in `node:test`)                 |
 
 Put a test next to the code: `foo.ts` → `foo.spec.ts`; `scripts/lib/foo.mjs` → `scripts/test/foo.test.mjs`. The

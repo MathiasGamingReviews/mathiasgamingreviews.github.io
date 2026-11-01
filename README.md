@@ -9,7 +9,7 @@ Source code of [www.mathiasgamingreviews.com](https://www.mathiasgamingreviews.c
 
 ## In short
 
-The site is an [Angular](https://angular.dev) 18 app with no server program. All reviews and news are in one SQLite
+The site is an [Angular](https://angular.dev) 22 app with no server program. All reviews and news are in one SQLite
 file, `public/data/mgr.db`, which the visitor's browser downloads and reads with [sql.js](https://sql.js.org).
 Deploying means copying the built files to two places:
 
@@ -30,11 +30,11 @@ or Git Bash for the deploy commands: they change some of the characters in them.
 
 ## First time on a new computer
 
-Install [Git](https://git-scm.com), [Node.js](https://nodejs.org) 22 LTS (22.13 or newer),
+Install [Git](https://git-scm.com), [Node.js](https://nodejs.org) 24 LTS (24.15 or newer),
 [Visual Studio Code](https://code.visualstudio.com) and [NcFTP](https://www.ncftp.com/download/), then:
 
 ```
-npm install -g @angular/cli@18
+npm install -g @angular/cli@22
 mkdir c:\Development\mgr-app
 cd c:\Development\mgr-app
 git clone https://github.com/MathiasGamingReviews/mathiasgamingreviews.github.io.git

@@ -6,6 +6,17 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ScreenshotGalleryComponent } from './screenshot-gallery.component';
 
 describe('ScreenshotGalleryComponent', () => {
+  // jsdom has no <dialog> behaviour: showModal()/close() only toggle the `open` attribute here.
+  beforeAll(() => {
+    const dialog = HTMLDialogElement.prototype;
+    dialog.showModal ??= function (this: HTMLDialogElement) {
+      this.setAttribute('open', '');
+    };
+    dialog.close ??= function (this: HTMLDialogElement) {
+      this.removeAttribute('open');
+    };
+  });
+
   let fixture: ComponentFixture<ScreenshotGalleryComponent>;
   let element: HTMLElement;
 
@@ -37,9 +48,9 @@ describe('ScreenshotGalleryComponent', () => {
   });
 
   it('opens the clicked screenshot full size', () => {
-    expect(dialog().open).toBeFalse();
+    expect(dialog().open).toBe(false);
     click('.thumbnails button', 1);
-    expect(dialog().open).toBeTrue();
+    expect(dialog().open).toBe(true);
     expect(caption()).toBe('Second');
     expect(dialog().querySelector('.counter')?.textContent).toBe('2 / 3');
   });
@@ -62,6 +73,6 @@ describe('ScreenshotGalleryComponent', () => {
   it('closes with the Close button', () => {
     click('.thumbnails button', 0);
     click('.dialog-buttons .close');
-    expect(dialog().open).toBeFalse();
+    expect(dialog().open).toBe(false);
   });
 });

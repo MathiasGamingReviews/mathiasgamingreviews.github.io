@@ -42,16 +42,16 @@ describe('FormState', () => {
   it('is busy while work runs and clear afterwards', async () => {
     const state = new FormState();
     let busyDuringWork = false;
-    expect(await state.run(async () => void (busyDuringWork = state.busy()))).toBeTrue();
-    expect(busyDuringWork).toBeTrue();
-    expect(state.busy()).toBeFalse();
+    expect(await state.run(async () => void (busyDuringWork = state.busy()))).toBe(true);
+    expect(busyDuringWork).toBe(true);
+    expect(state.busy()).toBe(false);
     expect(state.error()).toBe('');
   });
 
   it('keeps the error message of failed work', async () => {
     const state = new FormState();
-    expect(await state.run(() => Promise.reject(new Error('Nope')))).toBeFalse();
+    expect(await state.run(() => Promise.reject(new Error('Nope')))).toBe(false);
     expect(state.error()).toBe('Nope');
-    expect(state.busy()).toBeFalse();
+    expect(state.busy()).toBe(false);
   });
 });
