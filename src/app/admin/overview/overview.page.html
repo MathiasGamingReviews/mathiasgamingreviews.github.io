@@ -3,11 +3,11 @@
     <h1>Edit the website</h1>
   </div>
 
-  @if (result?.message) {
-    <p class="notice ok">{{ result?.message }}</p>
+  @if (result?.message; as message) {
+    <p class="notice ok">{{ message }}</p>
   }
-  @if (result?.warning) {
-    <p class="notice error">{{ result?.warning }}</p>
+  @if (result?.warning; as warning) {
+    <p class="notice error">{{ warning }}</p>
   }
   @if (error()) {
     <p class="notice error">{{ error() }}</p>
