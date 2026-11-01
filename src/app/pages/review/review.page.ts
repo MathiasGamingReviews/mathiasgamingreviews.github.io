@@ -15,12 +15,11 @@ import { ScreenshotGalleryComponent } from '../../shared/screenshot-gallery/scre
 import { StarsComponent } from '../../shared/stars/stars.component';
 
 @Component({
-  selector: 'app-review-page',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [DatePipe, RouterLink, ParagraphsPipe, ScreenshotGalleryComponent, StarsComponent],
-  templateUrl: './review.page.html',
-  styleUrl: './review.page.css',
+    selector: 'app-review-page',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [DatePipe, RouterLink, ParagraphsPipe, ScreenshotGalleryComponent, StarsComponent],
+    templateUrl: './review.page.html',
+    styleUrl: './review.page.css'
 })
 export class ReviewPage {
   /** Route parameter `:slug`. */

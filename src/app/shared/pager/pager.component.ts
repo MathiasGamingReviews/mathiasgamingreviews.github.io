@@ -10,11 +10,10 @@ import { RouterLink } from '@angular/router';
  * Hidden when there is only one page.
  */
 @Component({
-  selector: 'app-pager',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink],
-  template: `
+    selector: 'app-pager',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [RouterLink],
+    template: `
     @if (pageCount() > 1) {
       <nav class="pager" aria-label="Pages">
         @if (page() > 1) {
@@ -36,7 +35,7 @@ import { RouterLink } from '@angular/router';
       </nav>
     }
   `,
-  styles: `
+    styles: `
     .pager {
       display: flex;
       flex-wrap: wrap;
@@ -62,7 +61,7 @@ import { RouterLink } from '@angular/router';
       border-color: var(--accent);
       color: var(--on-accent);
     }
-  `,
+  `
 })
 export class PagerComponent {
   /** Current 1-based page. */

@@ -10,12 +10,11 @@ import { filter } from 'rxjs';
 import { SITE_LOGO, SITE_NAME } from './core/site.config';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+    selector: 'app-root',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [RouterOutlet, RouterLink, RouterLinkActive],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css'
 })
 export class AppComponent {
   protected readonly siteName = SITE_NAME;

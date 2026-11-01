@@ -13,11 +13,10 @@ import { SiteDataService } from '../../data/site-data.service';
 import { ParagraphsPipe } from '../../shared/paragraphs/paragraphs.pipe';
 
 @Component({
-  selector: 'app-news-item-page',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [DatePipe, RouterLink, ParagraphsPipe],
-  templateUrl: './news-item.page.html',
+    selector: 'app-news-item-page',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [DatePipe, RouterLink, ParagraphsPipe],
+    templateUrl: './news-item.page.html'
 })
 export class NewsItemPage {
   /** Route parameter `:id`. */

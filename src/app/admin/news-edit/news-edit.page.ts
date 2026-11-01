@@ -12,12 +12,11 @@ import { EditMessage, NEW_ID, today } from '../edit-helpers';
 import { FormState } from '../form-state';
 
 @Component({
-  selector: 'app-news-edit-page',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, RouterLink],
-  templateUrl: './news-edit.page.html',
-  styleUrl: '../admin.css',
+    selector: 'app-news-edit-page',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [FormsModule, RouterLink],
+    templateUrl: './news-edit.page.html',
+    styleUrl: '../admin.css'
 })
 export class NewsEditPage implements OnInit {
   /** Route parameter `:id`. */

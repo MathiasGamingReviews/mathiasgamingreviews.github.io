@@ -10,11 +10,10 @@ import { NewsCardComponent } from '../../shared/news-card/news-card.component';
 import { PagerComponent } from '../../shared/pager/pager.component';
 
 @Component({
-  selector: 'app-news-page',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NewsCardComponent, PagerComponent],
-  templateUrl: './news.page.html',
+    selector: 'app-news-page',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [NewsCardComponent, PagerComponent],
+    templateUrl: './news.page.html'
 })
 export class NewsPage {
   /** Query parameter `page`. */

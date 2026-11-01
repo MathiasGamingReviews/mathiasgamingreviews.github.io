@@ -20,11 +20,10 @@ const SORT_OPTIONS: { value: ReviewSort; label: string }[] = [
 ];
 
 @Component({
-  selector: 'app-reviews-page',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [PagerComponent, ReviewCardComponent],
-  templateUrl: './reviews.page.html',
+    selector: 'app-reviews-page',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [PagerComponent, ReviewCardComponent],
+    templateUrl: './reviews.page.html'
 })
 export class ReviewsPage implements OnInit {
   /** Query parameter `q`: search text. */
