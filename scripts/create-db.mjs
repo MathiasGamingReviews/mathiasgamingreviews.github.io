@@ -1,39 +1,32 @@
-// Creates public/data/mgr.db from db/schema.sql, db/migrations and db/sample-data.sql.
-// Usage: npm run db:create            (refuses to replace an existing database)
-//        npm run db:create -- --force (replaces it - all edits in it are lost)
-//        npm run db:create -- <file>  (creates a database somewhere else, e.g. for testing)
+/**
+ * @file npm run db:create - creates the database from db/schema.sql, db/migrations and db/sample-data.sql.
+ *
+ * Usage:
+ *   npm run db:create                  refuses to replace an existing database
+ *   npm run db:create -- --force       replaces public/data/mgr.db (all its data is lost)
+ *   npm run db:create -- <file>        writes to another file instead
+ */
 
-import { DatabaseSync } from 'node:sqlite';
-import { existsSync, mkdirSync, readFileSync, rmSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { applyMigrations } from './db-migrations.mjs';
+import { readFileSync } from 'node:fs';
+import { PATHS, SCHEMA_VERSION } from './lib/config.mjs';
+import { runCommand, targetDatabase } from './lib/cli.mjs';
+import { buildDatabaseFile, countRows, openDatabase, setVersion, transaction } from './lib/database.mjs';
+import { applyMigrations } from './lib/migrations.mjs';
 
-const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const target = process.argv.slice(2).find((arg) => !arg.startsWith('--'));
-const dbFile = target ? resolve(target) : join(root, 'public', 'data', 'mgr.db');
+await runCommand(() => {
+  const target = targetDatabase(PATHS.database, 'Use --force to replace it (this deletes everything in it).');
+  let version = SCHEMA_VERSION;
+  buildDatabaseFile(target, (db) => {
+    db.exec(readFileSync(PATHS.schema, 'utf8'));
+    setVersion(db, SCHEMA_VERSION);
+    version = applyMigrations(db).version;
+    transaction(db, () => db.exec(readFileSync(PATHS.sampleData, 'utf8')));
+  });
 
-if (existsSync(dbFile)) {
-  if (!process.argv.includes('--force')) {
-    console.error(`${dbFile} already exists. Use --force to replace it (this deletes everything in it).`);
-    process.exit(1);
+  const db = openDatabase(target, { readOnly: true });
+  for (const { table, rows } of countRows(db)) {
+    console.log(`${table}: ${rows} rows`);
   }
-  rmSync(dbFile);
-}
-mkdirSync(dirname(dbFile), { recursive: true });
-
-const db = new DatabaseSync(dbFile);
-db.exec('PRAGMA foreign_keys = ON;');
-db.exec('PRAGMA journal_mode = DELETE;');
-db.exec(readFileSync(join(root, 'db', 'schema.sql'), 'utf8'));
-db.exec('PRAGMA user_version = 1;');
-const { version } = applyMigrations(db, root);
-db.exec('BEGIN;' + readFileSync(join(root, 'db', 'sample-data.sql'), 'utf8') + 'COMMIT;');
-
-for (const table of ['platform', 'game', 'review', 'review_screenshot', 'review_link', 'news']) {
-  const { n } = db.prepare(`SELECT COUNT(*) AS n FROM ${table}`).get();
-  console.log(`${table}: ${n} rows`);
-}
-db.exec('VACUUM;');
-db.close();
-console.log(`Created ${dbFile} (version ${version})`);
+  db.close();
+  console.log(`Created ${target} (version ${version})`);
+});

@@ -1,7 +1,7 @@
 <header class="site-header">
   <a class="brand" routerLink="/">
-    <img src="logo.svg" alt="" width="56" height="56" />
-    <span>{{ title }}</span>
+    <img [src]="siteLogo" alt="" width="56" height="56" />
+    <span>{{ siteName }}</span>
   </a>
 </header>
 
@@ -11,7 +11,7 @@
     <li><a routerLink="/news" routerLinkActive="active">News</a></li>
     <li><a routerLink="/reviews" routerLinkActive="active">Reviews</a></li>
     @if (editing) {
-      <!-- Only on this computer while running "ng serve" / "npm run edit". -->
+      <!-- Dev mode only (ng serve). -->
       <li><a class="edit-link" routerLink="/admin" routerLinkActive="active">✎ Edit</a></li>
     }
   </ul>

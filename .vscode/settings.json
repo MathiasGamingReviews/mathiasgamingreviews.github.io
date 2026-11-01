@@ -1,0 +1,7 @@
+{
+  // Format with Prettier (.prettierrc.json) on save; show ESLint problems while typing.
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "eslint.validate": ["javascript", "typescript", "html"],
+  "[sql]": { "editor.formatOnSave": false }
+}

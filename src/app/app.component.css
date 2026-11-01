@@ -1,3 +1,4 @@
+/* Header, menu bar and page width. */
 .site-header {
   padding: 1rem var(--gutter);
   background: var(--bg-deep);
@@ -19,7 +20,7 @@
   font-size: clamp(1.3rem, 4vw, 2rem);
   font-weight: 800;
   letter-spacing: 0.02em;
-  background: linear-gradient(90deg, #fff, var(--accent-2));
+  background: linear-gradient(90deg, var(--on-accent), var(--accent-2));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -30,7 +31,7 @@
   top: 0;
   z-index: 10;
   background: var(--accent);
-  box-shadow: 0 2px 12px rgb(0 0 0 / 0.35);
+  box-shadow: 0 2px 12px var(--shadow);
 }
 
 .menu-bar ul {
@@ -44,20 +45,20 @@
 /* The " | " between the links. */
 .menu-bar li + li::before {
   content: '|';
-  color: rgb(255 255 255 / 0.5);
+  color: var(--separator);
 }
 
 .menu-bar a {
   display: inline-block;
   padding: 0.7rem 0.9rem;
-  color: #fff;
+  color: var(--on-accent);
   font-weight: 600;
   text-decoration: none;
 }
 
 .menu-bar a:hover,
 .menu-bar a.active {
-  background: rgb(0 0 0 / 0.2);
+  background: var(--darken);
 }
 
 .page {
@@ -67,6 +68,6 @@
 }
 
 .menu-bar a.edit-link {
-  background: rgb(0 0 0 / 0.25);
+  background: var(--darken-more);
   color: var(--star);
 }

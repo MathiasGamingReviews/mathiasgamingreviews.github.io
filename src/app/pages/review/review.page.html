@@ -19,7 +19,7 @@
             <p class="platform">{{ current.platform }}</p>
             <app-stars class="big-stars" [stars]="current.stars" />
             <time class="date" [attr.datetime]="current.reviewDate"
-              >Reviewed {{ current.reviewDate | date: 'd MMMM y' }}</time
+              >Reviewed {{ current.reviewDate | date: dateFormat }}</time
             >
           </div>
         </header>

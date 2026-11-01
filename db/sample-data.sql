@@ -1,30 +1,23 @@
 -- Sample content so every page has something to show.
 -- Replace with real reviews and news before publishing.
-
-INSERT INTO platform (id, name) VALUES
-  (1, 'PC'),
-  (2, 'PlayStation 5'),
-  (3, 'Xbox Series X|S'),
-  (4, 'Nintendo Switch'),
-  (5, 'Mobile');
+--
+-- Platforms come from db/migrations/003-prepopulate-platforms.sql:
+-- 1 = PC, 2 = PlayStation 5, 3 = Xbox Series X|S, 4 = Nintendo Switch, 5 = Mobile.
 
 INSERT INTO game (id, name, logo) VALUES
-  (1,  'Minecraft',                                 'logos/minecraft.svg'),
-  (2,  'Fortnite',                                  'logos/fortnite.svg'),
-  (3,  'Rocket League',                             'logos/rocket-league.svg'),
-  (4,  'The Legend of Zelda: Tears of the Kingdom', 'logos/zelda-totk.svg'),
-  (5,  'Mario Kart 8 Deluxe',                       'logos/mario-kart-8.svg'),
-  (6,  'Super Mario Bros. Wonder',                  'logos/mario-wonder.svg'),
-  (7,  'Hollow Knight',                             'logos/hollow-knight.svg'),
-  (8,  'Stardew Valley',                            'logos/stardew-valley.svg'),
-  (9,  'Terraria',                                  'logos/terraria.svg'),
-  (10, 'Among Us',                                  'logos/among-us.svg'),
-  (11, 'Celeste',                                   'logos/celeste.svg'),
-  (12, 'Portal 2',                                  'logos/portal-2.svg'),
-  (13, 'Forza Horizon 5',                           'logos/forza-horizon-5.svg'),
-  (14, 'Marvel''s Spider-Man 2',                    'logos/spider-man-2.svg'),
-  (15, 'Animal Crossing: New Horizons',             'logos/animal-crossing.svg'),
-  (16, 'Hades',                                     'logos/hades.svg');
+  (1,  'Minecraft',                                 'logos/minecraft.jpg'),
+  (2,  'Fortnite',                                  'logos/fortnite.jpg'),
+  (4,  'The Legend of Zelda: Tears of the Kingdom', 'logos/zelda-totk.jpg'),
+  (5,  'Mario Kart 8 Deluxe',                       'logos/mario-kart-8.jpg'),
+  (6,  'Super Mario Bros. Wonder',                  'logos/mario-wonder.jpg'),
+  (7,  'Hollow Knight',                             'logos/hollow-knight.jpg'),
+  (8,  'Stardew Valley',                            'logos/stardew-valley.jpg'),
+  (9,  'Terraria',                                  'logos/terraria.jpg'),
+  (10, 'Among Us',                                  'logos/among-us.jpg'),
+  (11, 'Celeste',                                   'logos/celeste.jpg'),
+  (12, 'Portal 2',                                  'logos/portal-2.jpg'),
+  (15, 'Animal Crossing: New Horizons',             'logos/animal-crossing.jpg'),
+  (16, 'Hades',                                     'logos/hades.png');
 
 INSERT INTO review (slug, game_id, platform_id, stars, review_date, body) VALUES
   ('minecraft-pc', 1, 1, 5, '2026-01-12',
@@ -37,10 +30,6 @@ It does not look fancy, but that does not matter at all. A must-play.'),
    'Fortnite is fast, colourful and really fun with a squad. Building takes a long time to learn, but zero build mode is great if you just want to fight.
 
 The item shop can get expensive, so keep an eye on how much you spend.'),
-  ('rocket-league-ps5', 3, 2, 4, '2026-02-21',
-   'Football with rocket cars sounds silly, and it is, in the best way. Every match is short so it is easy to play "just one more".
-
-Getting good at aerials takes forever, but scoring your first one feels amazing.'),
   ('zelda-tears-of-the-kingdom-switch', 4, 4, 5, '2026-03-09',
    'A huge adventure with sky islands, caves and a whole world to explore. The Ultrahand power lets you build cars, planes and crazy machines.
 
@@ -77,14 +66,6 @@ The music is fantastic and the story is surprisingly touching.'),
    'Solve puzzles with a portal gun. The puzzles make you feel clever and the robots are really funny.
 
 Co-op mode is one of the best things to play with a friend.'),
-  ('forza-horizon-5-xbox', 13, 3, 4, '2026-08-19',
-   'Drive amazing cars around a huge open map of Mexico. It looks incredible.
-
-There are so many events that you never run out of things to do.'),
-  ('spider-man-2-ps5', 14, 2, 5, '2026-09-06',
-   'Swinging through New York has never felt this good. The wing suit makes getting around even faster.
-
-Playing as both Peter and Miles keeps the story interesting.'),
   ('animal-crossing-new-horizons-switch', 15, 4, 4, '2026-09-24',
    'Build your own island, catch bugs and fish, and decorate everything. It is slow, but in a nice way.
 
@@ -119,9 +100,21 @@ SELECT r.id, l.position, l.url, l.description
 FROM review r
 JOIN (
   SELECT 'minecraft-pc' AS slug, 1 AS position, 'https://www.minecraft.net/' AS url, 'Official Minecraft website' AS description
+  UNION ALL SELECT 'fortnite-pc', 1, 'https://www.fortnite.com/', 'Official Fortnite website'
+  UNION ALL SELECT 'zelda-tears-of-the-kingdom-switch', 1, 'https://zelda.nintendo.com/tears-of-the-kingdom/', 'Official Tears of the Kingdom website'
+  UNION ALL SELECT 'mario-kart-8-deluxe-switch', 1, 'https://mariokart8.nintendo.com/', 'Official Mario Kart 8 Deluxe website'
+  UNION ALL SELECT 'super-mario-bros-wonder-switch', 1, 'https://supermariobroswonder.nintendo.com/', 'Official Super Mario Bros. Wonder website'
+  UNION ALL SELECT 'hollow-knight-pc', 1, 'https://www.hollowknight.com/', 'Official Hollow Knight website'
+  UNION ALL SELECT 'stardew-valley-pc', 1, 'https://www.stardewvalley.net/', 'Official Stardew Valley website'
+  UNION ALL SELECT 'terraria-pc', 1, 'https://terraria.org/', 'Official Terraria website'
+  UNION ALL SELECT 'among-us-mobile', 1, 'https://www.innersloth.com/games/among-us/', 'Official Among Us website'
+  UNION ALL SELECT 'celeste-switch', 1, 'https://www.celestegame.com/', 'Official Celeste website'
+  UNION ALL SELECT 'portal-2-pc', 1, 'https://www.thinkwithportals.com/', 'Official Portal 2 website'
+  UNION ALL SELECT 'animal-crossing-new-horizons-switch', 1, 'https://animalcrossing.nintendo.com/new-horizons/', 'Official Animal Crossing: New Horizons website'
+  UNION ALL SELECT 'hades-pc', 1, 'https://www.supergiantgames.com/games/hades/', 'Official Hades website'
   UNION ALL SELECT 'minecraft-pc', 2, 'https://en.wikipedia.org/wiki/Minecraft', 'Minecraft on Wikipedia'
-  UNION ALL SELECT 'celeste-switch', 1, 'https://en.wikipedia.org/wiki/Celeste_(video_game)', 'Celeste on Wikipedia'
-  UNION ALL SELECT 'hades-pc', 1, 'https://en.wikipedia.org/wiki/Hades_(video_game)', 'Hades on Wikipedia'
+  UNION ALL SELECT 'celeste-switch', 2, 'https://en.wikipedia.org/wiki/Celeste_(video_game)', 'Celeste on Wikipedia'
+  UNION ALL SELECT 'hades-pc', 2, 'https://en.wikipedia.org/wiki/Hades_(video_game)', 'Hades on Wikipedia'
 ) l ON l.slug = r.slug;
 
 INSERT INTO news (title, body, news_date) VALUES

@@ -1,13 +1,17 @@
-import { Component, OnInit, computed, effect, inject, input, signal } from '@angular/core';
+/**
+ * @file Reviews page: latest reviews, then all reviews with search, sort and paging.
+ * Route: /reviews?q=<search>&sort=<ReviewSort>&page=<n>
+ */
+
+import { ChangeDetectionStrategy, Component, OnInit, computed, effect, inject, input, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { Page, ReviewSort, ReviewSummary } from '../../data/models';
+import { REVIEWS_PAGE } from '../../core/site.config';
+import { DEFAULT_REVIEW_SORT, Page, ReviewSort, ReviewSummary } from '../../data/models';
 import { SiteDataService } from '../../data/site-data.service';
-import { PagerComponent } from '../../shared/pager.component';
-import { ReviewCardComponent } from '../../shared/review-card.component';
+import { PagerComponent } from '../../shared/pager/pager.component';
+import { ReviewCardComponent } from '../../shared/review-card/review-card.component';
 
-const LATEST_COUNT = 5;
-const PAGE_SIZE = 10;
-
+/** Sort drop-down entries, in display order. */
 const SORT_OPTIONS: { value: ReviewSort; label: string }[] = [
   { value: 'date', label: 'Review Date' },
   { value: 'platform', label: 'Platform' },
@@ -18,52 +22,57 @@ const SORT_OPTIONS: { value: ReviewSort; label: string }[] = [
 @Component({
   selector: 'app-reviews-page',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [PagerComponent, ReviewCardComponent],
   templateUrl: './reviews.page.html',
 })
 export class ReviewsPage implements OnInit {
-  /** From the address bar: /reviews?q=mario&sort=score&page=2 */
+  /** Query parameter `q`: search text. */
   readonly q = input<string>();
+  /** Query parameter `sort`: a ReviewSort value. */
   readonly sort = input<string>();
+  /** Query parameter `page`. */
   readonly page = input<string>();
   private readonly data = inject(SiteDataService);
   private readonly router = inject(Router);
   protected readonly sortOptions = SORT_OPTIONS;
-  /** The chosen sort order; Name (alphabetical) unless the address bar says otherwise. */
+  /** `sort` if valid, otherwise DEFAULT_REVIEW_SORT. */
   protected readonly sortBy = computed(
-    () => SORT_OPTIONS.find((option) => option.value === this.sort())?.value ?? 'name',
+    () => SORT_OPTIONS.find((option) => option.value === this.sort())?.value ?? DEFAULT_REVIEW_SORT,
   );
+  /** undefined while loading. */
   protected readonly latest = signal<ReviewSummary[] | undefined>(undefined);
   protected readonly result = signal<Page<ReviewSummary> | undefined>(undefined);
   protected readonly failed = signal(false);
 
   constructor() {
-    // Runs again whenever the search, sort or page in the address bar changes.
-    effect(() => this.loadPage(), { allowSignalWrites: true });
+    // Re-runs whenever q(), sortBy() or page() changes (all read before the first await).
+    effect(() => this.loadPage(this.q() ?? '', this.sortBy(), Number(this.page() ?? 1)), {
+      allowSignalWrites: true,
+    });
   }
 
   async ngOnInit(): Promise<void> {
     try {
-      this.latest.set(await this.data.latestReviews(LATEST_COUNT));
+      this.latest.set(await this.data.latestReviews(REVIEWS_PAGE.latestCount));
     } catch (error) {
       console.error(error);
       this.failed.set(true);
     }
   }
 
-  private async loadPage(): Promise<void> {
+  private async loadPage(search: string, sort: ReviewSort, page: number): Promise<void> {
+    this.failed.set(false);
     try {
-      this.result.set(
-        await this.data.reviewsPage(this.q() ?? '', this.sortBy(), Number(this.page() ?? 1), PAGE_SIZE),
-      );
+      this.result.set(await this.data.reviewsPage(search, sort, page, REVIEWS_PAGE.pageSize));
     } catch (error) {
       console.error(error);
       this.failed.set(true);
     }
   }
 
+  /** Puts the search text in the address bar (kept on refresh) and returns to page 1. */
   protected search(text: string): void {
-    // Put the search in the address bar so it survives a refresh; start again at page 1.
     this.router.navigate([], {
       queryParams: { q: text || null, page: null },
       queryParamsHandling: 'merge',
@@ -71,10 +80,10 @@ export class ReviewsPage implements OnInit {
     });
   }
 
+  /** Puts the sort order in the address bar (omitted for the default) and returns to page 1. */
   protected sortChanged(sort: string): void {
-    // Name is the default, so leave it out of the address bar; start again at page 1.
     this.router.navigate([], {
-      queryParams: { sort: sort === 'name' ? null : sort, page: null },
+      queryParams: { sort: sort === DEFAULT_REVIEW_SORT ? null : sort, page: null },
       queryParamsHandling: 'merge',
     });
   }

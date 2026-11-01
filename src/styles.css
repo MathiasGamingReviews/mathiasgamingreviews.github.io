@@ -1,4 +1,4 @@
-/* Site-wide colours and shared layout classes. */
+/* Global styles: colour and size variables, shared layout classes (section, card grid, article). */
 :root {
   --bg: #12152a;
   --bg-deep: #0b0d1c;
@@ -11,6 +11,15 @@
   --accent-2: #22d3ee;
   --star: #fbbf24;
   --star-empty: #3b4170;
+  --on-accent: #fff;
+  --success: #4ade80;
+  --danger: #f87171;
+  --danger-text: #fecaca;
+  --shadow: rgb(0 0 0 / 0.35);
+  --darken: rgb(0 0 0 / 0.2);
+  --darken-more: rgb(0 0 0 / 0.25);
+  --separator: rgb(255 255 255 / 0.5);
+  --backdrop: rgb(0 0 0 / 0.8);
   --radius: 12px;
   --gutter: clamp(1rem, 3vw, 2.5rem);
   color-scheme: dark;
@@ -26,7 +35,13 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif;
+  font-family:
+    'Segoe UI',
+    system-ui,
+    -apple-system,
+    Roboto,
+    Arial,
+    sans-serif;
   line-height: 1.6;
 }
 
@@ -71,19 +86,27 @@ a {
 }
 
 @media (max-width: 1300px) {
-  .card-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .card-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 1000px) {
-  .card-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .card-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 700px) {
-  .card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 380px) {
-  .card-grid { grid-template-columns: minmax(0, 1fr); }
+  .card-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 .card-grid > .message {

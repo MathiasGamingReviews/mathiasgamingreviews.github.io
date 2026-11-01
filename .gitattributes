@@ -1,0 +1,16 @@
+# Line endings: LF in the repository and in every checkout (matches .editorconfig and Prettier).
+* text=auto eol=lf
+
+# SQL files contain multi-line text values; CRLF conversion would change the stored text.
+*.sql text eol=lf
+
+# Binary files.
+*.db binary
+*.ico binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.docx binary
+*.pdf binary

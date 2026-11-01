@@ -1,24 +1,27 @@
-// Adds new tables/columns from db/migrations to public/data/mgr.db without touching the data in it.
-// Usage: npm run db:migrate
+/**
+ * @file npm run db:migrate - applies new db/migrations files to public/data/mgr.db, keeping its data.
+ */
 
-import { DatabaseSync } from 'node:sqlite';
 import { existsSync } from 'node:fs';
-import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { applyMigrations } from './db-migrations.mjs';
+import { PATHS } from './lib/config.mjs';
+import { runCommand } from './lib/cli.mjs';
+import { openDatabase } from './lib/database.mjs';
+import { writeDump } from './lib/dump.mjs';
+import { applyMigrations } from './lib/migrations.mjs';
 
-const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const dbFile = join(root, 'public', 'data', 'mgr.db');
-
-if (!existsSync(dbFile)) {
-  console.error(`${dbFile} does not exist. Run npm run db:create first.`);
-  process.exit(1);
-}
-
-const db = new DatabaseSync(dbFile);
-db.exec('PRAGMA foreign_keys = ON;');
-const { version, applied } = applyMigrations(db, root);
-db.close();
-
-console.log(applied.length ? `Applied: ${applied.join(', ')}` : 'Already up to date.');
-console.log(`Database is at version ${version}.`);
+await runCommand(() => {
+  if (!existsSync(PATHS.database)) {
+    throw new Error(`${PATHS.database} does not exist. Run npm run db:create first.`);
+  }
+  const db = openDatabase(PATHS.database);
+  try {
+    const { version, applied } = applyMigrations(db);
+    if (applied.length) {
+      writeDump(db);
+    }
+    console.log(applied.length ? `Applied: ${applied.join(', ')}` : 'Already up to date.');
+    console.log(`Database is at version ${version}.`);
+  } finally {
+    db.close();
+  }
+});

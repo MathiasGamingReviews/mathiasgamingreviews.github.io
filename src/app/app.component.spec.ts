@@ -1,6 +1,11 @@
+/**
+ * @file Tests for AppComponent (page template).
+ */
+
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { AppComponent } from './app.component';
+import { SITE_NAME } from './core/site.config';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -20,7 +25,7 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.brand')?.textContent).toContain('Mathias Gaming Reviews');
+    expect(compiled.querySelector('.brand')?.textContent).toContain(SITE_NAME);
     expect(compiled.querySelector('.menu-bar')?.textContent).toContain('Reviews');
   });
 });

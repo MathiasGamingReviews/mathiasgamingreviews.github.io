@@ -13,7 +13,7 @@
     @case ('ready') {
       @if (item(); as news) {
         <h1>{{ news.title }}</h1>
-        <time class="date" [attr.datetime]="news.newsDate">{{ news.newsDate | date: 'd MMMM y' }}</time>
+        <time class="date" [attr.datetime]="news.newsDate">{{ news.newsDate | date: dateFormat }}</time>
         @for (paragraph of news.body | paragraphs; track $index) {
           <p>{{ paragraph }}</p>
         }

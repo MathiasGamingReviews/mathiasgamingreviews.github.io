@@ -1,7 +1,7 @@
--- Readable copy of public/data/mgr.db, written automatically after every change in the edit pages.
--- Do not edit by hand. To rebuild the database from this file: npm run db:restore -- --force
+-- Readable copy of public/data/mgr.db, rewritten by the edit server after every change.
+-- Do not edit by hand. Rebuild the database from this file with: npm run db:restore -- --force
 
-PRAGMA user_version = 2;
+PRAGMA user_version = 3;
 
 CREATE TABLE platform (
   id   INTEGER PRIMARY KEY,
@@ -53,24 +53,28 @@ INSERT INTO platform (id, name) VALUES (2, 'PlayStation 5');
 INSERT INTO platform (id, name) VALUES (3, 'Xbox Series X|S');
 INSERT INTO platform (id, name) VALUES (4, 'Nintendo Switch');
 INSERT INTO platform (id, name) VALUES (5, 'Mobile');
+INSERT INTO platform (id, name) VALUES (6, 'Nintendo Switch 2');
+INSERT INTO platform (id, name) VALUES (7, 'PlayStation 4');
+INSERT INTO platform (id, name) VALUES (8, 'Xbox One');
+INSERT INTO platform (id, name) VALUES (9, 'Steam Deck');
+INSERT INTO platform (id, name) VALUES (10, 'Mac');
+INSERT INTO platform (id, name) VALUES (11, 'Meta Quest (VR)');
+INSERT INTO platform (id, name) VALUES (12, 'Browser');
 
 -- game
-INSERT INTO game (id, name, logo) VALUES (1, 'Minecraft', 'logos/minecraft.svg');
-INSERT INTO game (id, name, logo) VALUES (2, 'Fortnite', 'logos/fortnite.svg');
-INSERT INTO game (id, name, logo) VALUES (3, 'Rocket League', 'logos/rocket-league.svg');
-INSERT INTO game (id, name, logo) VALUES (4, 'The Legend of Zelda: Tears of the Kingdom', 'logos/zelda-totk.svg');
-INSERT INTO game (id, name, logo) VALUES (5, 'Mario Kart 8 Deluxe', 'logos/mario-kart-8.svg');
-INSERT INTO game (id, name, logo) VALUES (6, 'Super Mario Bros. Wonder', 'logos/mario-wonder.svg');
-INSERT INTO game (id, name, logo) VALUES (7, 'Hollow Knight', 'logos/hollow-knight.svg');
-INSERT INTO game (id, name, logo) VALUES (8, 'Stardew Valley', 'logos/stardew-valley.svg');
-INSERT INTO game (id, name, logo) VALUES (9, 'Terraria', 'logos/terraria.svg');
-INSERT INTO game (id, name, logo) VALUES (10, 'Among Us', 'logos/among-us.svg');
-INSERT INTO game (id, name, logo) VALUES (11, 'Celeste', 'logos/celeste.svg');
-INSERT INTO game (id, name, logo) VALUES (12, 'Portal 2', 'logos/portal-2.svg');
-INSERT INTO game (id, name, logo) VALUES (13, 'Forza Horizon 5', 'logos/forza-horizon-5.svg');
-INSERT INTO game (id, name, logo) VALUES (14, 'Marvel''s Spider-Man 2', 'logos/spider-man-2.svg');
-INSERT INTO game (id, name, logo) VALUES (15, 'Animal Crossing: New Horizons', 'logos/animal-crossing.svg');
-INSERT INTO game (id, name, logo) VALUES (16, 'Hades', 'logos/hades.svg');
+INSERT INTO game (id, name, logo) VALUES (1, 'Minecraft', 'logos/minecraft.jpg');
+INSERT INTO game (id, name, logo) VALUES (2, 'Fortnite', 'logos/fortnite.jpg');
+INSERT INTO game (id, name, logo) VALUES (4, 'The Legend of Zelda: Tears of the Kingdom', 'logos/zelda-totk.jpg');
+INSERT INTO game (id, name, logo) VALUES (5, 'Mario Kart 8 Deluxe', 'logos/mario-kart-8.jpg');
+INSERT INTO game (id, name, logo) VALUES (6, 'Super Mario Bros. Wonder', 'logos/mario-wonder.jpg');
+INSERT INTO game (id, name, logo) VALUES (7, 'Hollow Knight', 'logos/hollow-knight.jpg');
+INSERT INTO game (id, name, logo) VALUES (8, 'Stardew Valley', 'logos/stardew-valley.jpg');
+INSERT INTO game (id, name, logo) VALUES (9, 'Terraria', 'logos/terraria.jpg');
+INSERT INTO game (id, name, logo) VALUES (10, 'Among Us', 'logos/among-us.jpg');
+INSERT INTO game (id, name, logo) VALUES (11, 'Celeste', 'logos/celeste.jpg');
+INSERT INTO game (id, name, logo) VALUES (12, 'Portal 2', 'logos/portal-2.jpg');
+INSERT INTO game (id, name, logo) VALUES (15, 'Animal Crossing: New Horizons', 'logos/animal-crossing.jpg');
+INSERT INTO game (id, name, logo) VALUES (16, 'Hades', 'logos/hades.png');
 
 -- review
 INSERT INTO review (id, slug, game_id, platform_id, stars, review_date, body) VALUES (1, 'minecraft-pc', 1, 1, 5, '2026-01-12', 'Minecraft is the game I always come back to. You can build anything you can imagine, and survival mode makes every night feel a bit scary.
@@ -81,9 +85,6 @@ It does not look fancy, but that does not matter at all. A must-play.');
 INSERT INTO review (id, slug, game_id, platform_id, stars, review_date, body) VALUES (2, 'fortnite-pc', 2, 1, 4, '2026-02-03', 'Fortnite is fast, colourful and really fun with a squad. Building takes a long time to learn, but zero build mode is great if you just want to fight.
 
 The item shop can get expensive, so keep an eye on how much you spend.');
-INSERT INTO review (id, slug, game_id, platform_id, stars, review_date, body) VALUES (3, 'rocket-league-ps5', 3, 2, 4, '2026-02-21', 'Football with rocket cars sounds silly, and it is, in the best way. Every match is short so it is easy to play "just one more".
-
-Getting good at aerials takes forever, but scoring your first one feels amazing.');
 INSERT INTO review (id, slug, game_id, platform_id, stars, review_date, body) VALUES (4, 'zelda-tears-of-the-kingdom-switch', 4, 4, 5, '2026-03-09', 'A huge adventure with sky islands, caves and a whole world to explore. The Ultrahand power lets you build cars, planes and crazy machines.
 
 There is so much to do that I keep finding new things after many hours. The best game on the Switch.');
@@ -111,12 +112,6 @@ The music is fantastic and the story is surprisingly touching.');
 INSERT INTO review (id, slug, game_id, platform_id, stars, review_date, body) VALUES (12, 'portal-2-pc', 12, 1, 5, '2026-08-01', 'Solve puzzles with a portal gun. The puzzles make you feel clever and the robots are really funny.
 
 Co-op mode is one of the best things to play with a friend.');
-INSERT INTO review (id, slug, game_id, platform_id, stars, review_date, body) VALUES (13, 'forza-horizon-5-xbox', 13, 3, 4, '2026-08-19', 'Drive amazing cars around a huge open map of Mexico. It looks incredible.
-
-There are so many events that you never run out of things to do.');
-INSERT INTO review (id, slug, game_id, platform_id, stars, review_date, body) VALUES (14, 'spider-man-2-ps5', 14, 2, 5, '2026-09-06', 'Swinging through New York has never felt this good. The wing suit makes getting around even faster.
-
-Playing as both Peter and Miles keeps the story interesting.');
 INSERT INTO review (id, slug, game_id, platform_id, stars, review_date, body) VALUES (15, 'animal-crossing-new-horizons-switch', 15, 4, 4, '2026-09-24', 'Build your own island, catch bugs and fish, and decorate everything. It is slow, but in a nice way.
 
 Best played a little bit every day.');
@@ -139,16 +134,28 @@ INSERT INTO news (id, title, body, news_date) VALUES (9, 'Coming soon: walkthrou
 INSERT INTO news (id, title, body, news_date) VALUES (10, 'Halloween spooky games', 'Halloween is here! Look out for some spooky (but not too scary) game picks this week.', '2026-10-28');
 
 -- review_screenshot
-INSERT INTO review_screenshot (id, review_id, position, file, name, description) VALUES (1, 16, 1, 'screenshots/hades-pc/1.svg', 'The House of Hades', 'Where every escape attempt starts. Talk to everyone here between runs.');
-INSERT INTO review_screenshot (id, review_id, position, file, name, description) VALUES (2, 16, 2, 'screenshots/hades-pc/2.svg', 'Choosing a boon', 'Gods offer you powers during a run. Picking ones that work together is the key to winning.');
-INSERT INTO review_screenshot (id, review_id, position, file, name, description) VALUES (3, 16, 3, 'screenshots/hades-pc/3.svg', 'First boss', 'The first boss fight. Watch for the attack patterns and dash out of the way.');
-INSERT INTO review_screenshot (id, review_id, position, file, name, description) VALUES (4, 11, 1, 'screenshots/celeste-switch/1.svg', 'Forsaken City', 'The first chapter teaches you to jump, climb and dash.');
-INSERT INTO review_screenshot (id, review_id, position, file, name, description) VALUES (5, 11, 2, 'screenshots/celeste-switch/2.svg', 'Collecting strawberries', 'Strawberries are optional, but some are hidden in really tricky places.');
-INSERT INTO review_screenshot (id, review_id, position, file, name, description) VALUES (6, 1, 1, 'screenshots/minecraft-pc/1.svg', 'Our village', 'The village we built on our server, with a house for everyone.');
-INSERT INTO review_screenshot (id, review_id, position, file, name, description) VALUES (7, 1, 2, 'screenshots/minecraft-pc/2.svg', 'The railway', 'A minecart railway connects all our houses.');
+INSERT INTO review_screenshot (id, review_id, position, file, name, description) VALUES (6, 1, 0, 'screenshots/minecraft-pc/1.svg', 'Our village', 'The village we built on our server, with a house for everyone.');
+INSERT INTO review_screenshot (id, review_id, position, file, name, description) VALUES (7, 1, 1, 'screenshots/minecraft-pc/2.svg', 'The railway', 'A minecart railway connects all our houses.');
+INSERT INTO review_screenshot (id, review_id, position, file, name, description) VALUES (8, 11, 0, 'screenshots/celeste-switch/1.svg', 'Forsaken City', 'The first chapter teaches you to jump, climb and dash.');
+INSERT INTO review_screenshot (id, review_id, position, file, name, description) VALUES (9, 11, 1, 'screenshots/celeste-switch/2.svg', 'Collecting strawberries', 'Strawberries are optional, but some are hidden in really tricky places.');
+INSERT INTO review_screenshot (id, review_id, position, file, name, description) VALUES (10, 16, 0, 'screenshots/hades-pc/1.svg', 'The House of Hades', 'Where every escape attempt starts. Talk to everyone here between runs.');
+INSERT INTO review_screenshot (id, review_id, position, file, name, description) VALUES (11, 16, 1, 'screenshots/hades-pc/2.svg', 'Choosing a boon', 'Gods offer you powers during a run. Picking ones that work together is the key to winning.');
+INSERT INTO review_screenshot (id, review_id, position, file, name, description) VALUES (12, 16, 2, 'screenshots/hades-pc/3.svg', 'First boss', 'The first boss fight. Watch for the attack patterns and dash out of the way.');
 
 -- review_link
-INSERT INTO review_link (id, review_id, position, url, description) VALUES (1, 1, 1, 'https://www.minecraft.net/', 'Official Minecraft website');
-INSERT INTO review_link (id, review_id, position, url, description) VALUES (2, 1, 2, 'https://en.wikipedia.org/wiki/Minecraft', 'Minecraft on Wikipedia');
-INSERT INTO review_link (id, review_id, position, url, description) VALUES (3, 11, 1, 'https://en.wikipedia.org/wiki/Celeste_(video_game)', 'Celeste on Wikipedia');
-INSERT INTO review_link (id, review_id, position, url, description) VALUES (4, 16, 1, 'https://en.wikipedia.org/wiki/Hades_(video_game)', 'Hades on Wikipedia');
+INSERT INTO review_link (id, review_id, position, url, description) VALUES (5, 1, 0, 'https://www.minecraft.net/', 'Official Minecraft website');
+INSERT INTO review_link (id, review_id, position, url, description) VALUES (6, 1, 1, 'https://en.wikipedia.org/wiki/Minecraft', 'Minecraft on Wikipedia');
+INSERT INTO review_link (id, review_id, position, url, description) VALUES (7, 2, 0, 'https://www.fortnite.com/', 'Official Fortnite website');
+INSERT INTO review_link (id, review_id, position, url, description) VALUES (8, 4, 0, 'https://zelda.nintendo.com/tears-of-the-kingdom/', 'Official Tears of the Kingdom website');
+INSERT INTO review_link (id, review_id, position, url, description) VALUES (9, 5, 0, 'https://mariokart8.nintendo.com/', 'Official Mario Kart 8 Deluxe website');
+INSERT INTO review_link (id, review_id, position, url, description) VALUES (10, 6, 0, 'https://supermariobroswonder.nintendo.com/', 'Official Super Mario Bros. Wonder website');
+INSERT INTO review_link (id, review_id, position, url, description) VALUES (11, 7, 0, 'https://www.hollowknight.com/', 'Official Hollow Knight website');
+INSERT INTO review_link (id, review_id, position, url, description) VALUES (12, 8, 0, 'https://www.stardewvalley.net/', 'Official Stardew Valley website');
+INSERT INTO review_link (id, review_id, position, url, description) VALUES (13, 9, 0, 'https://terraria.org/', 'Official Terraria website');
+INSERT INTO review_link (id, review_id, position, url, description) VALUES (14, 10, 0, 'https://www.innersloth.com/games/among-us/', 'Official Among Us website');
+INSERT INTO review_link (id, review_id, position, url, description) VALUES (15, 11, 0, 'https://www.celestegame.com/', 'Official Celeste website');
+INSERT INTO review_link (id, review_id, position, url, description) VALUES (16, 11, 1, 'https://en.wikipedia.org/wiki/Celeste_(video_game)', 'Celeste on Wikipedia');
+INSERT INTO review_link (id, review_id, position, url, description) VALUES (17, 12, 0, 'https://www.thinkwithportals.com/', 'Official Portal 2 website');
+INSERT INTO review_link (id, review_id, position, url, description) VALUES (18, 15, 0, 'https://animalcrossing.nintendo.com/new-horizons/', 'Official Animal Crossing: New Horizons website');
+INSERT INTO review_link (id, review_id, position, url, description) VALUES (19, 16, 0, 'https://www.supergiantgames.com/games/hades/', 'Official Hades website');
+INSERT INTO review_link (id, review_id, position, url, description) VALUES (20, 16, 1, 'https://en.wikipedia.org/wiki/Hades_(video_game)', 'Hades on Wikipedia');

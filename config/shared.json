@@ -1,0 +1,14 @@
+{
+  "databaseFile": "data/mgr.db",
+  "defaultLogo": "logo.svg",
+  "stars": {
+    "min": 1,
+    "max": 5
+  },
+  "editApi": {
+    "path": "/api",
+    "header": "X-MGR-Edit",
+    "headerValue": "1"
+  },
+  "uploadExtensions": [".png", ".jpg", ".jpeg", ".gif", ".webp"]
+}
