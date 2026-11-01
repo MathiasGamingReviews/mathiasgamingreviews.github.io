@@ -26,7 +26,7 @@ export class OverviewPage implements OnInit {
   protected readonly news = signal<AdminNewsRow[] | undefined>(undefined);
   protected readonly error = signal('');
   /** Result of the save/delete that navigated here, if any. */
-  protected readonly result = inject(Router).getCurrentNavigation()?.extras.state as EditMessage | undefined;
+  protected readonly result = inject(Router).currentNavigation()?.extras.state as EditMessage | undefined;
 
   async ngOnInit(): Promise<void> {
     try {
