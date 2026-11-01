@@ -13,10 +13,10 @@ import { SiteDataService } from '../../data/site-data.service';
 import { ParagraphsPipe } from '../../shared/paragraphs/paragraphs.pipe';
 
 @Component({
-    selector: 'app-news-item-page',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [DatePipe, RouterLink, ParagraphsPipe],
-    templateUrl: './news-item.page.html'
+  selector: 'app-news-item-page',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [DatePipe, RouterLink, ParagraphsPipe],
+  templateUrl: './news-item.page.html',
 })
 export class NewsItemPage {
   /** Route parameter `:id`. */
@@ -29,7 +29,7 @@ export class NewsItemPage {
 
   constructor() {
     // Re-runs whenever id() changes (the signal is read before the first await).
-    effect(() => this.load(Number(this.id())), { allowSignalWrites: true });
+    effect(() => this.load(Number(this.id())));
   }
 
   private async load(id: number): Promise<void> {

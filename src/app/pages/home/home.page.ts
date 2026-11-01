@@ -11,10 +11,10 @@ import { NewsCardComponent } from '../../shared/news-card/news-card.component';
 import { ReviewCardComponent } from '../../shared/review-card/review-card.component';
 
 @Component({
-    selector: 'app-home-page',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [RouterLink, NewsCardComponent, ReviewCardComponent],
-    templateUrl: './home.page.html'
+  selector: 'app-home-page',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [RouterLink, NewsCardComponent, ReviewCardComponent],
+  templateUrl: './home.page.html',
 })
 export class HomePage implements OnInit {
   private readonly data = inject(SiteDataService);

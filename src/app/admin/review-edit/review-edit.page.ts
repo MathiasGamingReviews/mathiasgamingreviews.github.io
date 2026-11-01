@@ -16,11 +16,11 @@ import { FormState } from '../form-state';
 const NEW_LINK_URL = 'https://';
 
 @Component({
-    selector: 'app-review-edit-page',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [FormsModule, RouterLink],
-    templateUrl: './review-edit.page.html',
-    styleUrls: ['../admin.css', './review-edit.page.css']
+  selector: 'app-review-edit-page',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [FormsModule, RouterLink],
+  templateUrl: './review-edit.page.html',
+  styleUrls: ['../admin.css', './review-edit.page.css'],
 })
 export class ReviewEditPage implements OnInit {
   /** Route parameter `:id`. */

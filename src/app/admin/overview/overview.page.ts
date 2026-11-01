@@ -11,11 +11,11 @@ import { AdminNewsRow, AdminReviewRow, EditApiService } from '../edit-api.servic
 import { EditMessage, NEW_ID } from '../edit-helpers';
 
 @Component({
-    selector: 'app-overview-page',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [DatePipe, RouterLink, StarsComponent],
-    templateUrl: './overview.page.html',
-    styleUrl: '../admin.css'
+  selector: 'app-overview-page',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [DatePipe, RouterLink, StarsComponent],
+  templateUrl: './overview.page.html',
+  styleUrl: '../admin.css',
 })
 export class OverviewPage implements OnInit {
   private readonly api = inject(EditApiService);

@@ -20,10 +20,10 @@ const SORT_OPTIONS: { value: ReviewSort; label: string }[] = [
 ];
 
 @Component({
-    selector: 'app-reviews-page',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [PagerComponent, ReviewCardComponent],
-    templateUrl: './reviews.page.html'
+  selector: 'app-reviews-page',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [PagerComponent, ReviewCardComponent],
+  templateUrl: './reviews.page.html',
 })
 export class ReviewsPage implements OnInit {
   /** Query parameter `q`: search text. */
@@ -46,9 +46,7 @@ export class ReviewsPage implements OnInit {
 
   constructor() {
     // Re-runs whenever q(), sortBy() or page() changes (all read before the first await).
-    effect(() => this.loadPage(this.q() ?? '', this.sortBy(), Number(this.page() ?? 1)), {
-      allowSignalWrites: true,
-    });
+    effect(() => this.loadPage(this.q() ?? '', this.sortBy(), Number(this.page() ?? 1)));
   }
 
   async ngOnInit(): Promise<void> {

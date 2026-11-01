@@ -22,10 +22,10 @@ const OVERFLOW_TOLERANCE_PX = 1;
 
 /** The number of visible text lines is set by -webkit-line-clamp in news-card.component.css. */
 @Component({
-    selector: 'app-news-card',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [DatePipe, RouterLink],
-    template: `
+  selector: 'app-news-card',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [DatePipe, RouterLink],
+  template: `
     <article class="news-card">
       <h3>
         <a [routerLink]="['/news', item().id]">{{ item().title }}</a>
@@ -39,7 +39,7 @@ const OVERFLOW_TOLERANCE_PX = 1;
       </footer>
     </article>
   `,
-    styleUrl: './news-card.component.css'
+  styleUrl: './news-card.component.css',
 })
 export class NewsCardComponent implements AfterViewInit, OnDestroy {
   readonly item = input.required<NewsItem>();
